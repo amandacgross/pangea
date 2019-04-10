@@ -1,0 +1,38 @@
+<html>
+  <head>
+  	<script type="text/javascript" src="https://rawgithub.com/craftyjs/Crafty/release/dist/crafty-min.js"></script>
+  	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../scripts/home.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://jenil.github.io/bulmaswatch/nuclear/bulmaswatch.min.css"> 
+    <style>
+    	#game {
+    		position: absolute;
+    		top: 250;
+    		left: 150;
+    		z-index: 1;
+    		max-width: 500;
+    	}
+
+    	.input {
+    		width: 200;
+    		margin: 4;
+    	}
+
+      .is-primary {
+        margin-left: 150;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game">
+    	<form action="/startGame" type="get">
+    		<div id="players">
+	    	</div>
+	    	<button class="button" type="button" onClick=addtlPlayerInput()>Add Player</button>
+	    	<button class="button is-primary" type="submit">Start Game</button>
+    	</form>
+    </div>
+
+
+  </body>
+</html>
