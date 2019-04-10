@@ -17,5 +17,8 @@ window.addEventListener('load', function () {
 var addtlPlayerInput = function () {
 	var numPlayers = $('input').length + 1;
 	$('#players').append($('<input class="input" type="text" name="player'+ numPlayers + '" placeholder="Player ' + numPlayers+ '">'));
+	if (numPlayers == 6) {
+		$('#addp').hide();
+	}
 	return false;
 }
