@@ -1,0 +1,40 @@
+<html>
+  <head>
+  	<script type="text/javascript" src="https://rawgithub.com/craftyjs/Crafty/release/dist/crafty-min.js"></script>
+  	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://jenil.github.io/bulmaswatch/nuclear/bulmaswatch.min.css"> 
+    <style>
+        .game:hover {
+          background-color: #ffff99;
+        }
+    </style>
+  </head>
+  <body>
+    <form action="/loadGame" id="gamesForm" method="post">
+      <input type="hidden" name="selectedGame" id="selectedGame" value=""/> 
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Players</th>
+            <th>Last Played</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% games.forEach( (gameObj) => { %>
+          <tr id="<%= gameObj.id %>" class="game" onclick="gameClick(this.id)">
+            <td><%= gameObj.players %></td>
+            <td><%= gameObj.date.toLocaleString("en-US") %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </form>
+
+  </body>
+  <script>
+    gameClick = function(gameId) {
+      document.getElementById('selectedGame').value = gameId;
+      document.getElementById('gamesForm').submit();
+    }
+  </script>
+</html>
