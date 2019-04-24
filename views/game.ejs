@@ -1,5 +1,8 @@
 <html>
   <head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.0/paper-full.min.js"></script>
+    <!-- <script type="text/paperscript" src="../scripts/animations.js" canvas="myCanvas"></script> -->
+    <script type="text/paperscript" src="../scripts/drawShape.js" canvas="myCanvas"></script>
   	<script type="text/javascript" src="https://rawgithub.com/craftyjs/Crafty/release/dist/crafty-min.js"></script>
   	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../scripts/game.js"></script>
@@ -9,16 +12,58 @@
     		position: absolute;
         z-index: 1;
     	}
+      #myCanvas {
+        width: 400;
+        height: 250;
+        z-index: 2;
+        position:absolute;
+        bottom:0;
+        right:0;
+        background-color: ffffff;
+      }
+      #newText {
+        width: 300px;
+        position:absolute;
+        bottom:10;
+        right:40;
+        z-index:3;
+      }
+      #game {
+        width: 750px;
+        height: 500px;
+        background: url(assets/game-skin.jpg);
+        background-repeat: no-repeat;
+        background-size: 650px;
+        z-index: 0;
+        position: relative;
+      }
 
     </style>
   </head>
   <body>
+    
     <div id="game">
+      <canvas id="myCanvas" resize>
+      </canvas>
+      <form action="/makeRule" id="makeRule" method="post">
+        <input type=text id="newText" name="ruleText" required />
+        <input type=hidden id="newShape" name="newShape" required />
+        <button class="button is-primary" id="done" type="submit" disabled>DONE</button>
+      </form>
     </div>
 
 
   </body>
   <script type="text/javascript">
-    $(document).ready(displayPlayers(<%- JSON.stringify(players) %>, <%= turn %>));
+    $(document).ready(function() {
+      displayPlayers(<%- JSON.stringify(players) %>, <%= turn %>);
+      setGlobals(<%- JSON.stringify(state) %>, <%- JSON.stringify(map) %>);
+    });
   </script>
+<!--       <script type="text/paperscript" canvas="myCanvas">
+
+      
+      
+
+  </script> -->
 </html>

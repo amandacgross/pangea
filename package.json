@@ -9,6 +9,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "mongoose": "^5.5.2",
+    "paper": "^0.12.0",
     "path": "^0.12.7"
   },
   "devDependencies": {},

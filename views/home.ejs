@@ -25,7 +25,10 @@
   </head>
   <body>
     <div id="game">
-    	<form action="/startGame" type="get">
+      <form action="/loadGame" method="get">
+        <button class="button is-primary" type="submit">Load Game</button>
+      </form>
+    	<form action="/startGame" method="get">
     		<div id="players">
 	    	</div>
 	    	<button id="addp" class="button" type="button" onClick=addtlPlayerInput()>Add Player</button>
