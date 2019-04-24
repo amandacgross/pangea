@@ -18,14 +18,13 @@ const paper = require('paper');
 paper.setup();
 
 class Game {
-
 	constructor(id, players, map, turn) {
 		this.id = id;
 		this.players = players;
 		if (map) {
 			this.map = [];
 			map.forEach((rule) => {
-				var parsedShape = rule.shape;//paper.importJSON(rule.shape);
+				var parsedShape = rule.shape;
 				this.map.push({
 					text:rule.text,
 					shape:parsedShape
@@ -34,6 +33,7 @@ class Game {
 		} else {
 			this.map = [];	
 		}
+
 		if (turn) {
 			this.turn = turn;
 		} else {
@@ -47,7 +47,6 @@ class Game {
 let game;
 
 app.get('/', (req, res) => {
-
   res.render('home.ejs');
 });
 
@@ -61,7 +60,7 @@ app.get('/startGame', (req, res) => {
 		newGame.save(function (err, result) {
 		    if (!err) {
 		    	game = new Game(result._id, players);
-		      	res.render('game.ejs', {"players": players, "turn": 0, "state": "start"});
+		      	res.render('game.ejs', {"players": players, "map": [], "turn": 0, "state": "start"});
 		    } else {
 		      next(err);
 		    }
@@ -95,7 +94,8 @@ app.post('/loadGame', (req, res) => {
 		if (!err && gameObj) {
 			game = new Game(gameObj._id, gameObj.players, gameObj.map, gameObj.turn);
 			console.log('map', game.map);
-			res.render('game.ejs', {"players": game.players, "map": game.map, "turn": game.turn, "state": "start"});
+			res.render('game.ejs', {
+				"players": game.players, "map": game.map, "turn": game.turn, "state": "start"});
 		} else {
 			next(err);
 		}
@@ -103,14 +103,7 @@ app.post('/loadGame', (req, res) => {
 })
 
 // we will have a button that first says "GO" and will do the first person's turn
-
-
 // the button will change to "NEXT" and when it is clicked it will call /turn
-
-// app.get('/makeRule', (req, res) => {
-// 	// a card that allows you to write a rule will appear and then you can click "DONE"
-
-// });
 
 app.post('/makeRule', (req, res) => {
 	game.map.push({
@@ -135,10 +128,13 @@ app.post('/makeRule', (req, res) => {
 
 
 app.get('/turn', (req, res) => {
-
+	game.turn++;
+	if (game.turn == game.players.length) {
+		game.turn = 0;
+	}
 	// if this section is reached, landing coords are in blank spot
-	res.render('game.ejs', {"players": game.players, "map": game.map, "turn": game.turn, "state": "turn"});
-	//res.redirect('/makeRule');
+	res.render('game.ejs', {
+		"players": game.players, "map": game.map, "turn": game.turn, "state": "turn"});
 });
 
 
